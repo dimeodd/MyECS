@@ -30,6 +30,8 @@ namespace MyEcs
 
         public EcsSystem Add(ISystem subSys)
         {
+            if (subSys == null) throw new Exception("Empty ISystem");
+
             var id = _allSubSys.Add(subSys);
             _sysEnable.Add(true);
 
@@ -163,12 +165,12 @@ namespace MyEcs
             {
                 // try
                 // {
-                    if (_sysEnable._data[i])
-                        _updSubSys._data[i].Upd();
+                if (_sysEnable._data[i])
+                    _updSubSys._data[i].Upd();
                 // }
                 // catch (Exception ex)
                 // {
-                    //TODO
+                //TODO
                 //     UnityEngine.Debug.LogError(_updSubSys._data[i].GetType().Name + ex.HelpLink +
                 //     ex.Source);
                 //     throw ex;

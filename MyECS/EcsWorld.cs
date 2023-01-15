@@ -67,6 +67,7 @@ namespace MyEcs
 
         public Entity NewEntity()
         {
+            CheckMemory();
             Entity ent;
             if (freeEntity.Count > 0)
             {
@@ -91,6 +92,23 @@ namespace MyEcs
             }
             return ent;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal void CheckMemory()
+        {
+            freeEntity.Clear();
+            var lenght = entityData.Length;
+
+            for (int i = 0; i < lenght; i++)
+            {
+                var a_ent = entityData[i];
+                if (a_ent._types?.Count == 0)
+                {
+                    freeEntity.Add(i);
+                }
+            }
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void Recycle(Entity ent)
